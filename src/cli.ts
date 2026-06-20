@@ -1,3 +1,5 @@
+import { tokenize } from "./lexer.ts";
+
 export function cli() {
     const [input] = Deno.args;
 
@@ -8,7 +10,9 @@ export function cli() {
     try {
         const fileContent = Deno.readTextFileSync(input);
 
-        console.log(fileContent);
+        const tokens = tokenize(fileContent);
+
+        console.log(tokens)
     } catch (err) {
         if (err instanceof Deno.errors.NotFound) {
             throw new Error("The file was not found in your current directory")
